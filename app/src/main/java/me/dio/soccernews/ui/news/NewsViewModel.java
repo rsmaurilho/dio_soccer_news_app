@@ -4,25 +4,47 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import me.dio.soccernews.data.remote.SoccerNewsApi;
 import me.dio.soccernews.domain.News;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsViewModel extends ViewModel {
 
-    private final MutableLiveData<List<News>> news;
+    private final MutableLiveData<List<News>> news = new MutableLiveData<>();
+    private final SoccerNewsApi api;
 
     public NewsViewModel() {
-        this.news = new MutableLiveData<>();
+        Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("https://rsmaurilho.github.io/soccer_news_api/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build();
 
-        //TODO remover o mock de noticias
-        List<News> news = new ArrayList<>();
-        news.add(new News("Ferroviaria tem Desfalque Importante","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."));
-        news.add(new News("Ferroviaria Joga no Sabado","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."));
-        news.add(new News("Copa do Mundo Feminina Esta Terminando","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."));
+    api = retrofit.create(SoccerNewsApi.class);
+        this.findNews();
+    }
 
-        this.news.setValue(news);
+    private void findNews() {
+        api.getNews().enqueue(new Callback<List<News>>() {
+            @Override
+            public void onResponse(Call<List<News>> call, Response<List<News>> response) {
+                if (response.isSuccessful()){
+                    news.setValue(response.body());
+                }else{
+                    //TODO pensar tratamento de erros
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<News>> call, Throwable t) {
+            //TODO pensar tratamento de erros
+            }
+        });
     }
 
     public LiveData<List<News>> getNews() {
