@@ -18,3 +18,8 @@
 - alternando a cor o icones e favoritar
 - listando noticias favoritas via room
 
+[4-Refatorando e Atualizando alguns itens](https://github.com/rsmaurilho/dio_soccer_news_app/tree/release/refatorando-atualizando-alguns-itens)
+- atualizando repositorio
+- incluindo SwipeRefreshLayout
+- melhoririas e na estrutura final do app
+- update do icone do aplicativo
