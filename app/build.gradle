@@ -49,4 +49,9 @@ dependencies {
 
     //Retrofit (Image Loading)https://square.github.io/picasso
     implementation 'com.squareup.picasso:picasso:2.8'
-}
+
+    //room reference(https://developer.android.com/topic/libraries/architecture/room?hl=pt-br)
+    implementation("androidx.room:room-runtime:2.4.2")
+    annotationProcessor("androidx.room:room-compiler:2.4.2")
+
+    }

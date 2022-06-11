@@ -9,8 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.List;
+
+import me.dio.soccernews.MainActivity;
 import me.dio.soccernews.databinding.FragmentFavoritesBinding;
+import me.dio.soccernews.domain.News;
+import me.dio.soccernews.ui.adapters.NewsAdapters;
 
 public class FavoritesFragment extends Fragment {
 
@@ -22,10 +28,23 @@ public class FavoritesFragment extends Fragment {
                 new ViewModelProvider(this).get(FavoritesViewModel.class);
 
         binding = FragmentFavoritesBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        MainActivity activity =(MainActivity) getActivity();
 
-        favoritesViewModel.getText().observe(getViewLifecycleOwner(), binding.textFavorites::setText);
-        return root;
+        findFavoriteNews();
+
+        return binding.getRoot();
+    }
+
+    private void findFavoriteNews() {
+        MainActivity activity = (MainActivity)getActivity();
+        List<News> favoriteNews = null;
+        if (activity != null){
+            favoriteNews = activity.getDb().newsDao().loadFavoriteNews();
+            binding.rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.rvNews.setAdapter(new NewsAdapters(favoriteNews, updatedNews ->{
+                activity.getDb().newsDao().save(updatedNews);
+            }));
+        }
     }
 
     @Override
