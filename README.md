@@ -11,3 +11,10 @@
 - GitHub Pages
 - Retrofit e Picasso
 - Intents Nativa para Abir Links Externos
+
+[3-Evento de Click e pesistencia de dados](https://github.com/rsmaurilho/dio_soccer_news_app/tree/release/consumo-de-apis-e-persistencia-de-dados-locais)
+- evento click para favoritar 
+- percistencia de dados locais usando room
+- alternando a cor o icones e favoritar
+- listando noticias favoritas via room
+
