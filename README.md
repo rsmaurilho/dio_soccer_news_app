@@ -7,3 +7,7 @@
 - Icones ao Cardview e melhorando as Noticias,Layout
 - Criando um Adpter e testando o Recycleview
 
+[2-Consumindo a API](https://github.com/rsmaurilho/dio_soccer_news_app/tree/release/abstraindo-dominio-de-apps-android-nativos-com-java)
+- GitHub Pages
+- Retrofit e Picasso
+- Intents Nativa para Abir Links Externos
