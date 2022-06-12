@@ -23,3 +23,4 @@
 - incluindo SwipeRefreshLayout
 - melhoririas e na estrutura final do app
 - update do icone do aplicativo
+- update do Analitycs e Crashlyitics
