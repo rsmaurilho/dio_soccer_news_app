@@ -24,9 +24,7 @@ public class FavoritesFragment extends Fragment {
         favoritesViewModel  = new ViewModelProvider(this).get(FavoritesViewModel.class);
 
         binding = FragmentFavoritesBinding.inflate(inflater, container, false);
-
         loadFavoriteNews();
-
         return binding.getRoot();
     }
 
